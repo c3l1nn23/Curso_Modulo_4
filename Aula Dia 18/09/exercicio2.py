@@ -1,18 +1,16 @@
-numero = []
-
+numeros = []
 while True:
-    num = int(input('Digite um valor: '))
-    if num not in numero:
-        numero.append(num)
-        print('Valor adicionado na lista!')
+    n = (int(input('Digite o numero : ')))
+    if n not in numeros:
+        numeros.append(n)
+        print ("Valor Adicionado")
     else:
-        print('Valor já existe na lista!')
-    
-    resposta = str(input('Quer continuar? [S/N]: '))
-    if resposta in 'Nn':
+        print ('Valor ja existe')
+    escolha = str(input('Deseja continuar S/N ')).upper()
+    if escolha == 'N':
         break
-print(f'Numeros digitados:{numero}')
-numero.sort()
-print(f'Numeros digitados em ordem crescente :{numero}')
-numero.sort(reverse= True)
-print(f'Numeros digitados em ordem decrescente :{numero}')
+print (f"Os numeros digitados foram {numeros}")
+numeros.sort()
+print (f"Os numeros em ordem crescente ficam {numeros}")
+numeros.sort(reverse=True)
+print (f"Os numeros em ordem decrescente ficam {numeros}")
