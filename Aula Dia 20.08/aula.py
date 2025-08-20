@@ -30,17 +30,3 @@
 #     brasil.append(estado1.copy())
     
 # print(brasil)
-
-alunos = []
-aluno = {}
-
-while True:
-    aluno['Nome'] = (input('Digite O Nome Do Aluno : '))
-    aluno['Media'] = float(input('Digite a Media Do Aluno : '))
-    alunos.append(aluno.copy())
-    for v in aluno.values():
-        if type(v) == float:
-            if v >= 7:
-                print (f'Aluno {aluno["Nome"]} está aprovado com a media {aluno["Media"]}')
-            elif v <= 4 or v >= 6.9:
-                print (f'Aluno {aluno["Nome"]} está em recuparação com a media {aluno["Media"]}')
