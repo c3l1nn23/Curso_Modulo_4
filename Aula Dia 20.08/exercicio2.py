@@ -6,7 +6,7 @@ cont = 1
 for j in range(0,4):
     
     jogador = {}
-    jogador ['Nome'] = (input(f'Digite o nome do jogador {cont}º : \n')) 
+    jogador ['Nome'] = (input(f'Digite o nome do jogador {cont}º : \n')).capitalize()
     cont += 1
     jogador['Dado'] = randint(1,6)
     jogos.append(jogador.copy())
