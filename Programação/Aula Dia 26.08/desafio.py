@@ -25,16 +25,13 @@
 # vendedor1.vendeu(1000)
 # vendedor1.bateumeta(500)
 
-class Pessoa():
-    def __init__(self,nome,idade):
-        self.nome = nome
-        self.idade = idade
-    def exibir(self):    
-        print(f"Meu nome é {self.nome} e tenho {self.idade} de Idade")
-
-
-        
-nome = input('Qual o nome da pessoa ? ')
-idade = input(f'Qual a idade do {nome} ? ')
-apresentacao = Pessoa(nome,idade)
-apresentacao.exibir()
+# class Pessoa():
+#     def __init__(self,nome,idade):
+#         self.nome = nome
+#         self.idade = idade
+#     def exibir(self):    
+#         print(f"Meu nome é {self.nome} e tenho {self.idade} de Idade")
+# nome = input('Qual o nome da pessoa ? ')
+# idade = input(f'Qual a idade do {nome} ? ')
+# apresentacao = Pessoa(nome,idade)
+# apresentacao.exibir()
