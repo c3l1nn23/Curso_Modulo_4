@@ -185,6 +185,6 @@ def main():
         adicionar_cano = False
         remover_cano = []
         for cano in canos:
-            for passaro in passaros:
+            for i, passaro in enumerate (passaros):
                 if cano.colidir(passaro):
-                    rodando = False
+                    passaro.pop(i)
