@@ -5,9 +5,9 @@ import random
 TELA_LARGURA = 500
 TELA_ALTURA = 800
 
-IMAGEM_CANO = pygame.transform.scale2x(pygame.transform.load(os.path.join('imgs','pipe.png')))
-IMAGEM_CHAO = pygame.transform.scale2x(pygame.transform.load(os.path.join('imgs','base.png')))
-IMAGEM_BACKGROUND = pygame.transform.scale2x(pygame.transform.load(os.path.join('imgs','bg.png')))
+IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs','pipe.png')))
+IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs','base.png')))
+IMAGEM_BACKGROUND = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs','bg.png')))
 IMAGENS_PASSARO = [
     pygame.transform.scale2x(pygame.transform.load(os.path.join('imgs','bird1.png'))),
     pygame.transform.scale2x(pygame.transform.load(os.path.join('imgs','bird2.png'))),
@@ -79,7 +79,7 @@ class Passaro:
             self.contagem_imagem = self.TEMPO_ANIMACAO*2
         #Desenhar imagem
         imagem_rotacionada = pygame.transform.rotate(self.imagem, self.angulo)
-        pos_centro_imagem = self.imagem.get_rect(toplef = (self.x,self.y)).center
+        pos_centro_imagem = self.imagem.get_rect(topleft = (self.x,self.y)).center
         retangulo = imagem_rotacionada.get_rect(center=pos_centro_imagem)
         tela.blit(imagem_rotacionada,retangulo.topleft)
         
@@ -151,7 +151,7 @@ def desenhar_tela(tela, passaros, canos, chao, pontos):
         passaro.desenhar(tela)
     for cano in canos:
         cano.desenhar(tela)
-    texto = FONTE_PONTOS.render(f'Pontuação{pontos}', 1 (255,255,255))
+    texto = FONTE_PONTOS.render(f'Pontuação {pontos}', True, (255,255,255))
     tela.blit(texto,(TELA_LARGURA - 10 - texto.get_width(),10))
     chao.desenhar(tela)
     pygame.display.update()
@@ -183,8 +183,25 @@ def main():
         chao.mover()
         
         adicionar_cano = False
-        remover_cano = []
+        remover_canos = []
         for cano in canos:
             for i, passaro in enumerate (passaros):
                 if cano.colidir(passaro):
                     passaro.pop(i)
+                if not cano.passou and passaro.x > cano.x:
+                    cano.passou = True
+                    adicionar_cano = True
+            cano.mover()
+            if cano.x + cano.CANO_TOPO.get_width() < 0:
+                remover_canos.append(cano)
+        if adicionar_cano:
+            pontos+=1
+            canos.append(Cano(600))
+        for cano in remover_canos:
+            cano.remove(cano)
+        for i, passaro in enumerate(passaros):
+            if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
+                passaro.pop(i)
+        desenhar_tela(tela, passaros, canos, chao, pontos)
+if __name__ == '__main__':
+    main()
