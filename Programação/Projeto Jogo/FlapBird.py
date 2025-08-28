@@ -203,9 +203,9 @@ def main():
             for i, passaro in enumerate(passaros):
                 if cano.colidir(passaro):
                     passaros.pop(i)
-                    # rodando = False
-                    # pygame.quit()
-                    # quit()
+                    rodando = False
+                    pygame.quit()
+                    quit()
 
                 if not cano.passou and passaro.x > cano.x:
                     cano.passou = True
@@ -224,9 +224,9 @@ def main():
         for i, passaro in enumerate(passaros):
             if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
                 passaro.pop(i)
-                # rodando = False
-                # pygame.quit()
-                # quit()
+                rodando = False
+                pygame.quit()
+                quit()
 
         desenhar_tela(tela, passaros, canos, chao, pontos)
 
