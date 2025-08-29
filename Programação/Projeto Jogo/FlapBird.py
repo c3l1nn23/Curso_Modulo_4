@@ -171,27 +171,28 @@ def gameOver(tela):
     botao_altura = 60
     botao_x = (TELA_LARGURA - botao_largura) //2
     botao_y = (TELA_ALTURA - botao_altura) //2 + 50
-    botao_react = pygame.React(botao_x,botao_y, botao_largura,botao_altura)
+    botao_react = pygame.Rect(botao_x,botao_y, botao_largura,botao_altura)
     
     while True:
         tela.blit(IMAGEM_BACKGROUND,(0,0))
-        tela.blit(texto_game_over,((TELA_LARGURA, - texto_game_over.get_width()) //2,200))
+        tela.blit(texto_game_over,((TELA_LARGURA - texto_game_over.get_width()) //2,200))
         
         pygame.draw.rect(tela, (0,100,200), botao_react)
-        tela.blit((texto_retry,)(
+        tela.blit(texto_retry,
             
-            botao_x + (botao_largura, - texto_retry.get_width()) //2,
-            botao_y + (botao_largura, - texto_retry.get_width()) //2
-        ))
+            botao_x + (botao_largura - texto_retry.get_width()) //2,
+            botao_y + (botao_largura - texto_retry.get_width()) //2
+        )
         
         pygame.display.update()
         for evento in pygame.event.get():
-            if evento == pygame.QUIT():
+            if evento.type == pygame.QUIT():
                 quit()
-            
-            
-            
-            
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                if botao_react.collidepoint(evento.pos):
+                    return True
         
 def desenhar_tela(tela, passaros, canos, chao, pontos):
     tela.blit(IMAGEM_BACKGROUND, (0, 0))
@@ -237,10 +238,12 @@ def main():
         for cano in canos:
             for i, passaro in enumerate(passaros):
                 if cano.colidir(passaro):
-                    passaros.pop(i)
-                    rodando = False
-                    pygame.quit()
-                    quit()
+                    if cano.colidir(passaro):
+                        if gameOver(tela):
+                            main()
+                        else:
+                            pygame.quit()
+                            quit()
 
                 if not cano.passou and passaro.x > cano.x:
                     cano.passou = True
@@ -258,10 +261,12 @@ def main():
 
         for i, passaro in enumerate(passaros):
             if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
-                passaro.pop(i)
-                rodando = False
-                pygame.quit()
-                quit()
+                if chao.colidir(passaro):
+                    if gameOver(tela):
+                        main()
+                    else:
+                        pygame.quit()
+                        quit()
 
         desenhar_tela(tela, passaros, canos, chao, pontos)
 
