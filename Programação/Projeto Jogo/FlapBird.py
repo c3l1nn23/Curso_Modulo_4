@@ -161,9 +161,9 @@ class Chao:
         self.x2 -= self.VELOCIDADE
     
         if self.x1 + self.LARGURA < 0 :
-            self.x1 = self.x1 + self.LARGURA
+            self.x1 = self.x2 + self.LARGURA
         if self.x2 + self.LARGURA < 0:
-            self.x2 = self.x2 + self.LARGURA
+            self.x2 = self.x1 + self.LARGURA
     
     def desenhar(self, tela):
         tela.blit(self.IMAGEM, (self.x1, self.y))
@@ -188,7 +188,7 @@ def gameOver(tela):
         pygame.draw.rect(tela,(0,100,200), botao_rect)
         tela.blit(texto_retry, (
             botao_x + (botao_largura - texto_retry.get_width()) // 2,
-            botao_y + (botao_largura - texto_retry.get_width()) // 2,
+            botao_y + (botao_altura - texto_retry.get_height()) // 2,
         ))
         pygame.display.update()
         
